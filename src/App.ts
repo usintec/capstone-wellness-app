@@ -44,7 +44,7 @@ import express, {
   app.get('/', (req: Request, res: Response) => {
     return res.status(200).json({
       environment,
-      message: `Welcome to Creator-Mode ${os.hostname()}}`,
+      message: `Welcome to Capstone Wellness App ${os.hostname()}}`,
     });
   });
   
