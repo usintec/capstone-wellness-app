@@ -1,0 +1,3 @@
+export const TOKEN_CONFIRMATION = 1;
+export const PASSWORD_ACTIVATION = 2;
+export const EMAIL_TOKEN_ACTIVATION = 3;
