@@ -15,4 +15,7 @@ export default interface UserDocument extends Document {
     isValidPassword(password: string): Promise<Error | boolean>;
     getResetPasswordToken(): string;
     generateEmailConfirmToken(): string;
+    gender: string,
+    age: number
+
 }

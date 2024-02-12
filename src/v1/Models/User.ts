@@ -11,6 +11,7 @@ const UserSchema = new Schema(
   {
     name: {
       type: String,
+      default: ""
     },
     email: {
       type: String,
@@ -31,6 +32,15 @@ const UserSchema = new Schema(
     dateOfBirth: {
       type: String
     },
+    age: {
+      type: Number,
+      default: 0
+    },
+    healthGoal: [
+      {
+      type: String
+      }
+  ],
     role: {
       type: String,
       required: true,
@@ -49,44 +59,6 @@ const UserSchema = new Schema(
       default: UserStatus.ACTIVE,
       enum: [UserStatus.ACTIVE, UserStatus.INACTIVE, UserStatus.BANNED],
     },
-    referralCode: {
-      type: String,
-      unique: true,
-      select: false,
-    },
-    destinationTag: {
-      type: String,
-    },
-    vault: {
-      balance: {
-          type: String,
-          default: '0'
-        },
-      address: {
-          type: String,
-          default: ''
-        },
-      privateKey: {
-          type: String,
-          default: ''
-        },
-      publicKey: {
-          type: String,
-          default: ''
-        },
-      classicAddress: {
-          type: String,
-          default: ''
-        },
-      seed: {
-        type: String,
-        default: ''
-      }
-    },
-    hasWallet: {
-      type: Boolean,
-      default: false
-    },
     confirmEmailToken: String,
     resetPasswordToken: String,
     resetPasswordExpire: Date,
@@ -102,30 +74,6 @@ UserSchema.pre<UserDocument>("save", async function (next) {
   this.password = hash;
   next();
 });
-
-export const generateReferralCode = async (): Promise<string> => {
-  const generatedCode = generator.generate({
-    length: 6,
-    numbers: false,
-    uppercase: true,
-    lowercase: false,
-    symbols: false,
-  });
-
-  const referralCode = `JJ-${generatedCode}`;
-
-  const existingUserWithReferralCode = await model<UserDocument>(
-    "User"
-  ).findOne({
-    referralCode,
-  });
-
-  if (!existingUserWithReferralCode) {
-    return referralCode;
-  }
-
-  return generateReferralCode();
-};
 
 UserSchema.methods.isValidPassword = async function (
   password: string

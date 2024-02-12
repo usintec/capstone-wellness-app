@@ -1,10 +1,12 @@
 import { Router } from 'express';
 import Controller from '../../Controllers/User'
-import { getUserValidator } from '../../Validators/Auth/User';
+import { getUserValidator, updateProfileValidator } from '../../Validators/Auth/User';
 
 
 const router = Router();
 
-router.route('/:id').post(getUserValidator, Controller.getUserById);
+router.route('/:id').get(getUserValidator, Controller.getUserById);
+router.route('/').post(updateProfileValidator, Controller.updateProfile);
+router.route('/').get(Controller.getMyProfile);
 
 export default router;

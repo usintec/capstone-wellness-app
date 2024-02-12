@@ -20,6 +20,13 @@ export const changePasswordValidator: ValidationChain[] = [
     }),
 ];
 
+export const updateProfileValidator: ValidationChain[] = [
+  body("name").optional().isString().withMessage("old password must be a string"),
+  body("age").optional().isNumeric().withMessage("age must be a number"),
+  body("gender").optional().isString().withMessage("gender must be a string"),
+  body("healthGoal").optional().isArray().withMessage("healthGoal must be an array")
+];
+
 export const registerAdminValidator: ValidationChain[] = [
   body("email").notEmpty().isString()
 ];

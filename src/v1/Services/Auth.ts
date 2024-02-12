@@ -76,9 +76,9 @@ const login = async (
       throw new AuthFailureError("Account has been deactivated");
     }
 
-    if (!user.confirmEmail) {
-      throw new AuthFailureError("Account has not been verified");
-    }
+    // if (!user.confirmEmail) {
+    //   throw new AuthFailureError("Account has not been verified");
+    // }
 
     const accessToken = await Jwt.createToken(user);
 

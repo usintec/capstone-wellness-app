@@ -2,7 +2,7 @@ import { Types } from 'mongoose';
 import { NotFoundResponse } from '../../core/ApiResponse';
 import UserModel from '../Models/User'
 import UserDocument from '../Interface/User';
-import { AuthFailureError } from '../../core/ApiError';
+import { AuthFailureError, BadRequestError } from '../../core/ApiError';
 
 const getUserById = async (id: Types.ObjectId | undefined) => {
     if(id){
@@ -26,4 +26,15 @@ const changeUserPassword = async (
     user.password = newPassword;
     await user.save();
 }
-export default { getUserById, changeUserPassword }
+
+const updateProfile = async (userId: Types.ObjectId, userDoc: UserDocument) => {
+    const user = await UserModel.updateOne({_id: userId}, {...userDoc})
+    if(!user) throw new BadRequestError('user not updated')
+    return user
+}
+const getMyProfile = async (userId: Types.ObjectId) => {
+    const user = await UserModel.findById(userId)
+    if(!user) throw new BadRequestError('user not updated')
+    return user
+}
+export default { getUserById, changeUserPassword, updateProfile, getMyProfile }
