@@ -16,7 +16,7 @@ Web applications using Node.js, Express, and MongoDB. It's designed to help you 
 
 2. Navigate to the project directory:
    ```bash
-   cd creator-mode-jj-server
+   cd capstone-wellness-app
    ```
 
 3. Install dependencies:
